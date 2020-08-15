@@ -214,6 +214,17 @@ class Session
      * @return mixed
      * @throws Exceptions\CapabilityUnavailable
      */
+    public function GetLookupTypeMetadata($resource_id, $lookup_name)
+    {
+        return $this->MakeMetadataRequest('METADATA-LOOKUP_TYPE', $resource_id . ':' . $lookup_name, 'metadata.lookuptype');
+    }
+
+    /**
+     * @param $resource_id
+     * @param $lookup_name
+     * @return mixed
+     * @throws Exceptions\CapabilityUnavailable
+     */
     public function GetLookupValues($resource_id, $lookup_name)
     {
         return $this->MakeMetadataRequest('METADATA-LOOKUP_TYPE', $resource_id . ':' . $lookup_name, 'metadata.lookuptype');
@@ -546,7 +557,7 @@ class Session
                 'Accept-Encoding' => 'gzip',
                 'Accept' => '*/*',
             ],
-            'curl' => [ CURLOPT_COOKIEFILE => tempnam(sys_get_temp_dir(), 'phrets') ]
+            'curl' => [ CURLOPT_COOKIEFILE => $this->configuration->getCookieFile() ]
         ];
 
         // disable following 'Location' header (redirects) automatically

@@ -21,6 +21,7 @@ class Configuration
     /** @var \PHRETS\Strategies\Strategy */
     protected $strategy;
     protected $options = [];
+    protected $cookie_file = '';
 
     public function __construct()
     {
@@ -253,5 +254,13 @@ class Configuration
     public function getHttpAuthenticationMethod()
     {
         return $this->http_authentication;
+    }
+
+    public function setCookieFile($cookie_file) {
+        $this->cookie_file = $cookie_file;
+    }
+
+    public function getCookieFile() {
+        return $this->cookie_file ?: tempnam(sys_get_temp_dir(), 'phrets');
     }
 }
